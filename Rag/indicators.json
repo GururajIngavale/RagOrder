@@ -1,0 +1,623 @@
+[
+{
+  "id": "indicator_01",
+  "short_name": "RSI",
+  "name": "Relative Strength Index",
+  "category": "Momentum Oscillator",
+  "description": "Measures the speed and magnitude of recent price changes to identify overbought or oversold conditions. Developed by J. Welles Wilder. :contentReference[oaicite:0]{index=0}",
+  "formula": "RSI = 100 – [100 ÷ (1 + RS)] where RS = Average Gain over N periods ÷ Average Loss over N periods. :contentReference[oaicite:1]{index=1}",
+  "parameters": "Typical period N = 14; adjustable depending on timeframe.",
+  "signal": { 
+    "buy": "RSI crosses above ~30 (or adjusted lower threshold) from below signaling potential rebound", 
+    "sell": "RSI crosses below ~70 (or adjusted upper threshold) from above signaling potential pull-back", 
+    "neutral": "RSI between ~30 and ~70 indicates neither extreme condition" 
+  },
+  "best_timeframe": "Short to medium-term (e.g., 1-hour to daily charts); adaptable depending on setting",
+  "strengths": "Simple to interpret; widely recognised; good at highlighting overbought/oversold and divergences",
+  "weaknesses": "Can stay in overbought/oversold zones for extended time in strong trends; gives false signals in choppy market",
+  "source": "https://www.investopedia.com/terms/r/rsi.asp",
+  "tags": [ "oscillator", "momentum", "overbought/oversold", "divergence" ]
+}
+,
+{
+  "id": "indicator_02",
+  "short_name": "Stochastic",
+  "name": "Stochastic Oscillator",
+  "category": "Momentum Oscillator",
+  "description": "Compares the current closing price of a security to its price range over a specified period to gauge momentum and potential turning points. Developed by George Lane. :contentReference[oaicite:2]{index=2}",
+  "formula": "%K = (Current Close – Lowest Low in n periods) ÷ (Highest High in n periods – Lowest Low in n periods) × 100; %D = SMA of %K (commonly 3-period) :contentReference[oaicite:3]{index=3}",
+  "parameters": "Typical look-back period n = 14 for %K; %D often 3-period SMA of %K.",
+  "signal": { 
+    "buy": "%K crosses above %D in oversold region (e.g., below ~20) signalling upward momentum likely", 
+    "sell": "%K crosses below %D in overbought region (e.g., above ~80) signalling downward momentum likely", 
+    "neutral": "The %K and %D lines staying between ~20-80 without clear cross or trend indicates no strong signal" 
+  },
+  "best_timeframe": "Short timeframes (e.g., intraday 15-min to 1-hour) but also usable on daily charts depending on setting",
+  "strengths": "Responsive to recent price changes; helps identify momentum shifts and turning points; useful in range-bound markets",
+  "weaknesses": "Can give many false signals in strong trending markets; may require adjustment of thresholds; smoothing may reduce responsiveness",
+    "source": "https://www.corporatefinanceinstitute.com/resources/technical-analysis/stochastic-oscillator/ :contentReference[oaicite:4]{index=4}",
+  "tags": [ "oscillator", "momentum", "overbought/oversold", "range-bound trading" ]
+}
+,
+{
+  "id": "indicator_03",
+  "short_name": "SMA",
+  "name": "Simple Moving Average",
+  "category": "Trend-Following / Moving Average",
+  "description": "A simple arithmetic moving average that smooths price data by calculating the average of recent closing prices over a specified number of periods. :contentReference[oaicite:0]{index=0}",
+  "formula": "SMA(n) = (P₁ + P₂ + … + Pₙ) ÷ n, where P = closing price and n = number of periods. :contentReference[oaicite:1]{index=1}",
+  "parameters": "Typical period n = 20, 50, 200 depending on timeframe.",
+  "signal": {
+    "buy": "Price crosses above the SMA line (or short‐term SMA crosses above long‐term SMA) signalling upward trend",
+    "sell": "Price crosses below the SMA line (or short‐term SMA crosses below long‐term SMA) signalling downward trend",
+    "neutral": "Price remains close to the SMA with no clear directional crossover"
+  },
+  "best_timeframe": "Medium to long-term (e.g., daily, weekly) but can be used intraday with shorter lengths.",
+  "strengths": "Simple to calculate and interpret; smooths out noise; good for identifying trend direction and support/resistance levels.",
+  "weaknesses": "Lags the price because it gives equal weight to all periods; less responsive in fast changing markets; crossovers may produce false signals in choppy or range‐bound conditions. :contentReference[oaicite:2]{index=2}",
+  "source": "https://www.investopedia.com/terms/s/sma.asp :contentReference[oaicite:3]{index=3}",
+  "tags": ["moving average", "trend-following", "support/resistance"]
+}
+,
+{
+  "id": "indicator_04",
+  "short_name": "EMA",
+  "name": "Exponential Moving Average",
+  "category": "Trend-Following / Moving Average",
+  "description": "An exponential moving average that gives greater weight to more recent prices, thereby reacting faster to price changes than the simple moving average. :contentReference[oaicite:4]{index=4}",
+  "formula": "EMA_today = (Price_today × multiplier) + (EMA_yesterday × (1 − multiplier)); where Multiplier = 2 ÷ (n + 1) for period n. :contentReference[oaicite:5]{index=5}",
+  "parameters": "Typical period n = 12, 26, 50 depending on timeframe and strategy.",
+  "signal": {
+    "buy": "Price crosses above the EMA line (or short‐period EMA crosses above longer‐period EMA) signalling bullish momentum",
+    "sell": "Price crosses below the EMA line (or short‐period EMA crosses below longer‐period EMA) signalling bearish momentum",
+    "neutral": "Price oscillates around the EMA without a clear directional crossover"
+  },
+  "best_timeframe": "Short to medium term (e.g., intraday to daily) due to faster responsiveness.",
+  "strengths": "More responsive to recent price changes than SMA; good for catching early trend shifts; widely used in cross-MA strategies.",
+  "weaknesses": "Still lags to some extent; more prone to false signals in sideways or highly volatile markets; needs parameter adjustment for different assets/timeframes. :contentReference[oaicite:6]{index=6}",
+  "source": "https://www.investopedia.com/terms/e/ema.asp :contentReference[oaicite:7]{index=7}",
+  "tags": ["moving average", "trend-following", "fast ma", "crossovers"]
+}
+,
+{
+  "id": "indicator_05",
+  "short_name": "MACD",
+  "name": "Moving Average Convergence Divergence",
+  "category": "Momentum / Trend-Following Oscillator",
+  "description": "A momentum and trend-following indicator that shows the relationship between two exponential moving averages of price, and includes a signal line and histogram. Developed by Gerald Appel. :contentReference[oaicite:8]{index=8}",
+  "formula": "MACD line = EMA₁₂ − EMA₂₆; Signal line = EMA₉ of MACD line; Histogram = MACD line − Signal line. :contentReference[oaicite:9]{index=9}",
+  "parameters": "Typical settings: 12-period EMA, 26-period EMA, 9-period signal line.",
+  "signal": {
+    "buy": "MACD line crosses above the signal line (histogram turns positive) signalling bullish momentum",
+    "sell": "MACD line crosses below the signal line (histogram turns negative) signalling bearish momentum",
+    "neutral": "MACD and signal line close together and histogram near zero indicating no strong momentum"
+  },
+  "best_timeframe": "Short to medium term (e.g., 1-hour to daily charts) but can also be used for swing trades.",
+  "strengths": "Captures momentum shifts and trend reversals; combines trend and momentum in one indicator; widely used and recognized.",
+  "weaknesses": "Lagging by its nature (since based on EMAs); may give false signals in range-bound markets; histogram can confuse less experienced traders. :contentReference[oaicite:10]{index=10}",
+   "source": "https://www.investopedia.com/terms/m/macd.asp :contentReference[oaicite:11]{index=11}",
+  "tags": ["momentum", "trend-following", "oscillator", "crossovers", "histogram"]
+}
+,
+{
+  "id": "indicator_06",
+  "short_name": "Bollinger Bands",
+  "name": "Bollinger Bands®",
+  "category": "Volatility / Price Envelope",
+  "description": "A volatility-based band indicator created by John Bollinger that plots a moving average and upper & lower bands at a multiple of standard deviations away, giving a dynamically adjusting envelope around price. :contentReference[oaicite:3]{index=3}",
+  "formula": "Middle Band = SMA(n); Upper Band = SMA(n) + (K × σ_n); Lower Band = SMA(n) − (K × σ_n), where σ_n is the standard deviation of price over n periods. :contentReference[oaicite:4]{index=4}",
+  "parameters": "Typical settings: n = 20 periods for the SMA, K = 2 standard deviations. :contentReference[oaicite:5]{index=5}",
+  "signal": {
+    "buy": "Price touches or closes below the Lower Band and then starts moving back up (in expectation of reversion or breakout).",
+    "sell": "Price touches or closes above the Upper Band and then starts moving down (in expectation of reversion) or breaks out upward with strong momentum.",
+    "neutral": "Price remains between bands without meaningful band-width change or breakout; bands are relatively stable."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) where volatility changes are meaningful; works across timeframes but settings may adapt. :contentReference[oaicite:6]{index=6}",
+  "strengths": "Adapts to changing volatility; gives clear visual envelope; can highlight overbought/oversold extremes relative to range.",
+  "weaknesses": "Being reactive, it does not predict direction; in strong trending markets price can ride the band (upper or lower) giving misleading “overbought/oversold” cues; requires confirmation from other tools. :contentReference[oaicite:7]{index=7}",
+   "source": "https://www.investopedia.com/terms/b/bollingerbands.asp :contentReference[oaicite:8]{index=8}",
+  "tags": ["volatility", "envelope", "standard deviation", "overbought/oversold"]
+}
+,
+{
+  "id": "indicator_07",
+  "short_name": "Stochastic",
+  "name": "Stochastic Oscillator",
+  "category": "Momentum Oscillator",
+  "description": "A momentum indicator developed by George Lane that compares a closing price to its recent high-low range in order to gauge momentum and potential reversal points. :contentReference[oaicite:9]{index=9}",
+  "formula": "%K = (Close − LowestLow_N) ÷ (HighestHigh_N − LowestLow_N) × 100; %D = SMA3(%K) or a moving average of %K. :contentReference[oaicite:10]{index=10}",
+  "parameters": "Typical setting: N = 14 periods for look-back; %D smoothing often 3 periods. :contentReference[oaicite:11]{index=11}",
+  "signal": {
+    "buy": "%K crosses above %D in oversold zone (e.g., below ~20) or divergence where price makes new low but oscillator does not.",
+    "sell": "%K crosses below %D in overbought zone (e.g., above ~80) or divergence where price makes new high but oscillator does not.",
+    "neutral": "%K and %D move without crossing or are between ~20-80 without clear momentum shift."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) especially suited for range or reversal setups.",
+  "strengths": "Responsive to momentum shifts; gives early signals of potential turning points; good for range-bound and oscillating markets.",
+  "weaknesses": "Can give many false signals in strong trends (where momentum stays high); must be used with trend context; thresholds may need adjustment. :contentReference[oaicite:12]{index=12}",
+  "source": "https://www.investopedia.com/terms/s/stochasticoscillator.asp :contentReference[oaicite:13]{index=13}",
+  "tags": ["momentum", "oscillator", "overbought/oversold", "divergence"]
+}
+,
+{
+  "id": "indicator_08",
+  "short_name": "ATR",
+  "name": "Average True Range",
+  "category": "Volatility Indicator",
+  "description": "A volatility indicator developed by J. Welles Wilder that measures the average range of price movements (including gaps) over a specified period. :contentReference[oaicite:14]{index=14}",
+  "formula": "TR_t = max[(High_t − Low_t), |High_t − Close_{t−1}|, |Low_t − Close_{t−1}|]; ATR_initial = (1/n) × ∑_{i=1}^n TR_i; ATR_t = ( (ATR_{t−1} × (n-1)) + TR_t ) / n. :contentReference[oaicite:15]{index=15}",
+  "parameters": "Typical setting: n = 14 periods; can use shorter/longer periods depending on timeframe. :contentReference[oaicite:16]{index=16}",
+  "signal": {
+    "buy": "Rising ATR suggests increasing volatility which can support a breakout trade; entry triggered when breakout occurs above a range plus ATR multiple.",
+    "sell": "Also rising ATR can indicate strong move in either direction; for risk management, high ATR may prompt widening of stops or reduction of position size.",
+    "neutral": "Stable or low ATR suggests range or consolidation—less ideal for breakout trades, wait for volatility expansion."
+  },
+  "best_timeframe": "Any timeframe (intraday, daily, weekly) for measuring volatility; especially useful for setting stops/exits and breakout timing.",
+  "strengths": "Non-directional but highly useful for volatility measurement, stop-loss sizing, breakout assessment; adapts to different assets/timeframes.",
+  "weaknesses": "Does not give direction or trend; cannot be used alone for buy/sell direction; high value does not guarantee favourable move direction. :contentReference[oaicite:17]{index=17}",
+  "source": "https://www.investopedia.com/terms/a/atr.asp :contentReference[oaicite:18]{index=18}",
+  "tags": ["volatility", "range", "stop-loss", "breakout"]
+}
+,
+{
+  "id": "indicator_09",
+  "short_name": "CCI",
+  "name": "Commodity Channel Index",
+  "category": "Momentum Oscillator / Cycle-Based",
+  "description": "An oscillator developed by Donald Lambert that measures the current price level relative to the average price level over a specified period. Used to identify overbought/oversold conditions and early trend shifts. :contentReference[oaicite:1]{index=1}",
+  "formula": "CCI = (Typical Price – SMA(Typical Price, n)) ÷ (0.015 × Mean Deviation), where Typical Price = (High + Low + Close) ÷ 3. :contentReference[oaicite:2]{index=2}",
+  "parameters": "Typical period n = 20 (or sometimes 14); constant = 0.015. :contentReference[oaicite:3]{index=3}",
+  "signal": {
+    "buy": "CCI crosses above -100 (or moves from below toward +100) signalling potential upward rebound or new up-trend",
+    "sell": "CCI crosses below +100 (or moves from above toward -100) signalling potential downward reversal or new down-trend",
+    "neutral": "CCI remains between –100 and +100 with no clear breakout of extremes; indicates no strong deviation yet"
+  },
+  "best_timeframe": "Short to medium term (daily or shorter) though oscillatory behaviour means works well in both intra-day and swing contexts. :contentReference[oaicite:4]{index=4}",
+  "strengths": "Can identify early trend shifts and over-extensions; more flexible than bounded oscillators because not capped; good for spotting divergences and cycle extremes.",
+  "weaknesses": "Unbounded and setting levels are subjective; may give false signals in very volatile or choppy markets; lag appears because based on moving averages. :contentReference[oaicite:5]{index=5}",
+  "source": "https://www.investopedia.com/terms/c/commoditychannelindex.asp :contentReference[oaicite:6]{index=6}",
+  "tags": ["oscillator", "momentum", "overbought/oversold", "cycle-analysis"]
+}
+,
+{
+  "id": "indicator_10",
+  "short_name": "ADX",
+  "name": "Average Directional Index",
+  "category": "Trend Strength Indicator",
+  "description": "An indicator developed by J. Welles Wilder Jr. that measures the strength of a trend (regardless of direction) using the Directional Movement system (+DI, -DI). :contentReference[oaicite:8]{index=8}",
+  "formula": "ADX is derived from +DI and -DI: first calculate True Range (TR), +DM, -DM, then smoothed +DI = (Smoothed +DM / Smoothed TR) ×100, same for -DI; DX = |+DI - -DI| / (+DI + -DI) ×100; ADX = smoothed average of DX (typically 14-period). :contentReference[oaicite:9]{index=9}",
+  "parameters": "Typical period = 14; thresholds often: ADX >25 or >40 to indicate strong trend. :contentReference[oaicite:10]{index=10}",
+  "signal": {
+    "buy": "Trend strength rising (ADX crosses upward above ~25) while +DI > -DI signals a strong bullish trend",
+    "sell": "Trend strength rising while -DI > +DI signals a strong bearish trend",
+    "neutral": "ADX below ~20-25 indicates weak or no trend (range-bound) — best to avoid trending strategies"
+  },
+  "best_timeframe": "Medium term (4-hour to daily) but can be used for shorter timeframes if adapted; best when confirming trend presence rather than timing entries.",
+  "strengths": "Helps distinguish trending vs ranging markets; useful filter for other indicators; less direction-biased, focuses on strength only.",
+  "weaknesses": "Lagging by nature (since smoothing required); does not show direction by itself; may give delayed signals in fast-moving markets. :contentReference[oaicite:11]{index=11}",
+  "source": "https://www.investopedia.com/ask/answers/112814/how-average-directional-index-adx-calculated-and-what-formula.asp :contentReference[oaicite:12]{index=12}",
+  "tags": ["trend-strength", "directional-movement", "filter", "trend-vs-range"]
+}
+,
+{
+  "id": "indicator_11",
+  "short_name": "OBV",
+  "name": "On-Balance Volume",
+  "category": "Volume Flow / Confirmation Indicator",
+  "description": "A cumulative volume-based indicator popularised by Joe Granville which adds or subtracts volume depending on whether the closing price rose or fell, used to confirm price trends or spot divergences. :contentReference[oaicite:14]{index=14}",
+  "formula": "If Close_t > Close_{t-1} then OBV_t = OBV_{t-1} + Volume_t; if Close_t < Close_{t-1} then OBV_t = OBV_{t-1} − Volume_t; if equal then OBV_t = OBV_{t-1}. :contentReference[oaicite:15]{index=15}",
+  "parameters": "No built-in smoothing required; starting value can be zero or prior known value; timeframe same as price series.",
+  "signal": {
+    "buy": "OBV rises while price also rising (confirming trend) or OBV divergence (price falling while OBV rising) signals potential reversal",
+    "sell": "OBV falls while price also falling (confirming downtrend) or OBV divergence (price rising while OBV flat or falling) signals potential weakness",
+    "neutral": "OBV moves flat or mirrors price without showing divergence or strong volume flow — uncertain confirmation"
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) for confirming volume flow; can be used across timeframes.",
+  "strengths": "Simple to calculate and interpret; volume-aware confirmation of price moves; good for spotting divergence between price and volume.",
+  "weaknesses": "Does not directly give entry/exit signals; cumulative nature means starting point affects absolute values; less useful in low-volume or illiquid markets. :contentReference[oaicite:16]{index=16}",
+  "source": "https://www.investopedia.com/articles/technical/100801.asp :contentReference[oaicite:17]{index=17}",
+  "tags": ["volume", "confirmation", "divergence", "trend-confirmation"]
+}
+,
+{
+  "id": "indicator_12",
+  "short_name": "Fibonacci Retracement",
+  "name": "Fibonacci Retracement Levels",
+  "category": "Support/Resistance / Price Structure",
+  "description": "A tool that identifies potential support and resistance levels by plotting horizontal lines at key Fibonacci ratios after a significant price move. :contentReference[oaicite:0]{index=0}",
+  "formula": "Select two extreme points (High and Low). Then calculate levels: Low + (High-Low) × 23.6 %, 38.2 %, 50 %, 61.8 %. :contentReference[oaicite:1]{index=1}",
+  "parameters": "Swing high & swing low points; typical retracement levels: 23.6%, 38.2%, 50%, 61.8% (optionally 78.6%). :contentReference[oaicite:2]{index=2}",
+  "signal": {
+    "buy": "Price retraces to a Fibonacci level (e.g., 38.2 % or 61.8 %) and shows bullish reversal price action from that level.",
+    "sell": "Price retraces to a Fibonacci level and shows bearish reversal price action (e.g., in a down-trend, retrace to 61.8 % then resume down).",
+    "neutral": "Price is between levels without clear reaction or reversal; no strong signal."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) — useful for pullbacks and entries in trending markets.",
+  "strengths": "Helps identify logical entry zones on pullbacks; aligns with support/resistance levels; widely used and therefore self-fulfilling to some degree.",
+  "weaknesses": "Highly subjective (choice of swing points); levels often broken in strong momentum moves; not a signal generator by itself (needs confirmation). :contentReference[oaicite:3]{index=3}",
+   "source": "https://www.investopedia.com/terms/f/fibonacciretracement.asp :contentReference[oaicite:4]{index=4}",
+  "tags": ["support/resistance", "price structure", "pullback", "trend continuation"]
+}
+,
+{
+  "id": "indicator_13",
+  "short_name": "Aroon Oscillator",
+  "name": "Aroon Oscillator",
+  "category": "Trend Strength / Timing",
+  "description": "An indicator derived from the Aroon Indicator which measures how many periods have passed since the highest high / lowest low and signals the strength and change of trends. :contentReference[oaicite:6]{index=6}",
+  "formula": "Aroon Up = [(n − periods since highest high in last n) ÷ n] ×100; Aroon Down = [(n − periods since lowest low in last n) ÷ n] ×100; Aroon Oscillator = Aroon Up - Aroon Down. :contentReference[oaicite:7]{index=7}",
+  "parameters": "Typical period n = 14 or 25; oscillator range -100 to +100. :contentReference[oaicite:8]{index=8}",
+  "signal": {
+    "buy": "Aroon Oscillator crosses above zero (i.e., Aroon Up > Aroon Down) signalling an emerging uptrend.",
+    "sell": "Aroon Oscillator crosses below zero (Aroon Down > Aroon Up) signalling an emerging downtrend.",
+    "neutral": "Aroon Oscillator is around zero and neither uptrend nor downtrend is clearly dominating."
+  },
+  "best_timeframe": "Medium term (4-hour to daily) but can be adapted to shorter timeframes with care.",
+  "strengths": "Good at identifying start of new trends and distinguishing trending vs range markets; simple to interpret as a single line. :contentReference[oaicite:9]{index=9}",
+  "weaknesses": "Does not show magnitude of trend, only time-based; in volatile/choppy markets it may give false signals; needs adaptation to asset behaviour. :contentReference[oaicite:10]{index=10}",
+   "source": "https://www.investopedia.com/terms/a/aroon.asp :contentReference[oaicite:11]{index=11}",
+  "tags": ["trend strength", "trend change", "oscillator", "time-based"]
+}
+,
+{
+  "id": "indicator_14",
+  "short_name": "VPT",
+  "name": "Volume Price Trend Indicator",
+  "category": "Volume / Confirmation Indicator",
+  "description": "An indicator developed by Buff Dormeier that relates price changes to volume by cumulatively adjusting a line based on percentage price change times volume, helping confirm trend strength and volume flow. :contentReference[oaicite:13]{index=13}",
+  "formula": "VPT_t = VPT_{t-1} + Volume_t × [(Close_t – Close_{t-1}) ÷ Close_{t-1}]. :contentReference[oaicite:14]{index=14}",
+  "parameters": "Start value arbitrary (often zero); uses daily (or chosen timeframe) volume and closing prices.",
+  "signal": {
+    "buy": "VPT trending upward (higher highs) in line with price uptrend — confirming buying pressure.",
+    "sell": "VPT trending downward (lower highs) while price uptrend or showing divergence (price up, VPT down) — warning of weakness.",
+    "neutral": "VPT flat or moving with price without clear divergence or momentum change."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) for confirming price-volume relationships.",
+  "strengths": "Combines price and volume for trend confirmation; useful for spotting divergences and validating moves. :contentReference[oaicite:15]{index=15}",
+  "weaknesses": "Does not give primary entry/exit timing; cumulative nature means absolute values are arbitrary; less effective in very low volume or illiquid markets. :contentReference[oaicite:16]{index=16}",
+  "source": "https://www.investopedia.com/ask/answers/030315/what-volume-price-trend-indicator-vpt-formula-and-how-it-calculated.asp :contentReference[oaicite:17]{index=17}",
+  "tags": ["volume", "trend confirmation", "price-volume relationship", "divergence"]
+}
+,
+{
+  "id": "indicator_15",
+  "short_name": "Williams %R",
+  "name": "Williams Percent Range",
+  "category": "Momentum Oscillator",
+  "description": "A momentum indicator developed by Larry Williams that shows the current closing price relative to the high-low range over a specified look-back period, helping identify overbought and oversold conditions. :contentReference[oaicite:1]{index=1}",
+  "formula": "%R = (Highest High_n − Close_today) ÷ (Highest High_n − Lowest Low_n) × (−100) where n is look-back period (commonly 14). :contentReference[oaicite:2]{index=2}",
+  "parameters": "Typical look-back period n = 14; scale is 0 to −100. :contentReference[oaicite:3]{index=3}",
+  "signal": {
+    "buy": "%R rises above the oversold threshold (e.g., crosses above -80) or divergence where price makes a new low but %R does not.",
+    "sell": "%R falls below the overbought threshold (e.g., crosses below -20) or divergence where price makes new high but %R does not.",
+    "neutral": "%R is between typical thresholds (e.g., -80 to -20) and provides no strong signal."
+  },
+  "best_timeframe": "Short-term (intraday to daily) due to its sensitivity; effective in swing and range-bound markets.",
+  "strengths": "Very responsive to recent price changes; good for identifying overbought/oversold extremes and divergences. :contentReference[oaicite:4]{index=4}",
+  "weaknesses": "Can generate false signals in strong trending markets (where overbought/oversold zones can persist); does not indicate trend strength. :contentReference[oaicite:5]{index=5}",
+  "source": "https://www.investopedia.com/terms/w/williamsr.asp",
+  "tags": ["oscillator","momentum","overbought/oversold","divergence"]
+}
+,
+{
+  "id": "indicator_16",
+  "short_name": "MA Envelopes",
+  "name": "Moving Average Envelopes / Channels",
+  "category": "Trend-Following / Price Envelope",
+  "description": "An indicator which plots lines (envelopes) above and below a moving average (simple or exponential) at a fixed percentage distance, helping identify trend direction and over-extension from the mean. :contentReference[oaicite:6]{index=6}",
+  "formula": "Center line = MA(n); Upper envelope = MA(n) × (1 + p); Lower envelope = MA(n) × (1 − p) where p is the percentage deviation. :contentReference[oaicite:7]{index=7}",
+  "parameters": "Typical MA period n = 20; envelope deviation percentage p = 2-5% or chosen based on asset volatility. :contentReference[oaicite:8]{index=8}",
+  "signal": {
+    "buy": "Price breaks above upper envelope indicating strong trend/momentum, or price pulls back to envelope and rebounds upward.",
+    "sell": "Price breaks below lower envelope indicating strong downward trend/momentum, or price rallies to upper envelope and stalls/reverses.",
+    "neutral": "Price remains within the envelopes and no breakout or clear bounce off envelope is visible."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) especially useful for trending or mean-reversion setups depending on strategy.",
+  "strengths": "Helps visualise deviation from average; good for identifying extended moves or pullbacks; customizable for asset volatility. :contentReference[oaicite:9]{index=9}",
+  "weaknesses": "Choice of percentage is subjective; in strong trends price may ride envelope giving misleading over-extension signals; lag inherent in MA. :contentReference[oaicite:10]{index=10}",
+  "source": "https://www.investopedia.com/articles/trading/08/moving-average-envelope.asp",
+  "tags": ["trend-following","envelope","price deviation","support/resistance"]
+}
+,
+{
+  "id": "indicator_17",
+  "short_name": "TSI",
+  "name": "True Strength Index",
+  "category": "Momentum / Trend Oscillator",
+  "description": "A momentum indicator developed by William Blau that uses double-smoothed price changes (and absolute price changes) to reduce noise, assess momentum, trend direction and possible reversals. :contentReference[oaicite:12]{index=12}",
+  "formula": "TSI = 100 × (Double-Smoothed PriceChange ÷ Double-Smoothed Absolute PriceChange). For example, first compute PC = Close_t − Close_{t-1}, then EMA_r of PC, then EMA_s of that result, likewise absolute PC. :contentReference[oaicite:13]{index=13}",
+  "parameters": "Typical smoothing parameters: r = 25, s = 13 for the double EMA smoothing; signal line often 7- to 12-period EMA of TSI. :contentReference[oaicite:14]{index=14}",
+  "signal": {
+    "buy": "TSI crosses above signal line (or crosses above zero) indicating strength; divergence where price falls but TSI rises.",
+    "sell": "TSI crosses below signal line (or crosses below zero) indicating weakness; divergence where price rises but TSI falls.",
+    "neutral": "TSI oscillates near zero or signal line without clear cross or trend direction."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) suitable for capturing momentum shifts and trend changes.",
+  "strengths": "Smoother and less noisy than many oscillators; combines momentum and trend direction; adaptable to multiple timeframes. :contentReference[oaicite:15]{index=15}",
+  "weaknesses": "Still lagging due to smoothing; signals may be delayed in fast moves; divergence and crossovers sometimes generate false positives. :contentReference[oaicite:16]{index=16}",
+  "source": "https://www.investopedia.com/terms/t/tsi.asp",
+  "tags": ["momentum","trend","oscillator","divergence"]
+}
+,
+{
+  "id": "indicator_18",
+  "short_name": "MTF_Overlay",
+  "name": "Multi-Timeframe Trend / Volatility Overlay",
+  "category": "Trend / Volatility / Multi-Timeframe",
+  "description": "An overlay combining multiple indicators/timeframes (e.g., moving averages across timeframes + volatility measures) to identify alignment of major trend + pullback zones + entry timing. For example: trend direction on daily, pullback zone on 4-hour, entry on 1-hour with volatility filter. :contentReference[oaicite:0]{index=0}",
+  "formula": "No single formula — conceptually: TrendSignal = MA_fast_n1 on timeframe T1 crosses MA_slow_n2; VolatilityFilter = ATR_n3 on T2 > threshold; EntryTrigger = price breaks layer or touches pullback zone on T3. :contentReference[oaicite:1]{index=1}",
+  "parameters": "Typical: T1 = Daily (MA periods e.g., 50 & 200), T2 = 4-hour (ATR period 14), T3 = 1-hour (entry timeframe); thresholds & look-backs set per asset.",
+  "signal": {
+    "buy": "Trend alignment across higher timeframe (e.g., Daily MA bullish) + volatility expanding on medium timeframe + price pullback or breakout on lower timeframe.",
+    "sell": "Trend alignment bearish on higher timeframe + medium timeframe volatility expansion + price pullback or lower timeframe breakout to downside.",
+    "neutral": "Lack of alignment across timeframes or volatility low (range market) → avoid entries or wait."
+  },
+  "best_timeframe": "Combination of timeframes: higher (daily/weekly) for trend, medium (4H) for pullback/volatility, lower (1H or less) for entry.",
+  "strengths": "Helps filter trades by ensuring trend, volatility and entry timing align; adds multi-timeframe confluence; reduces trading against higher timeframe trend.",
+  "weaknesses": "More complex; requires managing/time synchronizing multiple timeframes; may delay signal; more prone to ‘analysis paralysis’; not a plug-and-play simple indicator.",
+    "source": "https://medium.com/%40redsword_23261/multi-timeframe-trend-following-strategy-with-atr-volatility-management-a1bba9478625 :contentReference[oaicite:2]{index=2}",
+  "tags": ["multi-timeframe", "trend", "volatility", "pullback", "entry timing"]
+}
+,
+{
+  "id": "indicator_19",
+  "short_name": "Positioning_Flow",
+  "name": "Positioning / Flow Indicators (Futures Open Interest / COT)",
+  "category": "Sentiment / Flow / Derivatives Positioning",
+  "description": "Indicators that analyze futures open interest, the Commitments of Traders Report (COT) data, and other derivatives positioning to gauge how institutional/trader flows may influence price. :contentReference[oaicite:4]{index=4}",
+  "formula": "Example: Net_Spec_Long = Speculator_Long − Speculator_Short; COT_Index = (Net_Position − Min(Net_Position, lookback)) ÷ (Max(Net_Position, lookback) − Min(Net_Position, lookback)) ×100. :contentReference[oaicite:5]{index=5}",
+  "parameters": "Look-back period often 252 weeks (≈5 years) for normalisation; data categories: Commercials, Large Speculators, Small Traders.",
+  "signal": {
+    "buy": "When speculator net positions are extremely short (or commercials very long) relative to historical range → contrarian buy signal.",
+    "sell": "When speculator net positions are extremely long (or commercials very short) relative to historical range → contrarian sell signal.",
+    "neutral": "Positioning is near middle of historical range → no strong crowd extreme signal."
+  },
+  "best_timeframe": "Medium to longer term (weekly data) rather than intraday; usable for swing/position trades rather than exact entry timing.",
+  "strengths": "Gives insight into what large players are doing; helps detect crowding and potential reversal zones; useful for commodities and futures markets.",
+  "weaknesses": "Low frequency (often weekly); data lag; does not provide exact entry/exit timing; requires additional technical confirmation.",
+  "source": "https://www.investopedia.com/terms/c/cot.asp :contentReference[oaicite:6]{index=6}",
+  "tags": ["COT", "open interest", "futures positioning", "sentiment", "flow"]
+}
+,
+{
+  "id": "indicator_20",
+  "short_name": "Ichimoku",
+  "name": "Ichimoku Cloud (Ichimoku Kinko Hyo)",
+  "category": "Trend / Momentum / Support-Resistance",
+  "description": "A comprehensive indicator developed by Goichi Hosoda in the 1930s / 1960s that provides trend direction, momentum, and future support & resistance levels via its five components: Tenkan-sen, Kijun-sen, Senkou Span A, Senkou Span B, Chikou Span. :contentReference[oaicite:8]{index=8}",
+  "formula": "Tenkan-sen = (Highest high_n + Lowest low_n) ÷2 for n=9; Kijun-sen = (Highest high_m + Lowest low_m) ÷2 for m=26; Senkou Span A = (Tenkan-sen + Kijun-sen) ÷2 shifted forward 26; Senkou Span B = (Highest high_p + Lowest low_p) ÷2 for p=52 shifted forward 26; Chikou Span = Close shifted back 26. :contentReference[oaicite:9]{index=9}",
+  "parameters": "Typical default: 9,26,52 periods; settings can be adjusted for scalping or swing (e.g., 6,13,26 for faster). :contentReference[oaicite:10]{index=10}",
+  "signal": {
+    "buy": "Price above cloud, cloud bullish (Span A above Span B), Tenkan-sen above Kijun-sen; lagging span above price → bullish trend.",
+    "sell": "Price below cloud, cloud bearish (Span B above Span A), Tenkan-sen below Kijun-sen; lagging span below price → bearish trend.",
+    "neutral": "Price inside cloud (trend unclear) or cloud flat/thin → market maybe consolidating."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) depending on settings; highly effective in trending markets. :contentReference[oaicite:11]{index=11}",
+  "strengths": "All-in-one: trend, momentum, support/resistance; forward projection of cloud helps anticipate future zones; works across markets/timeframes.",
+  "weaknesses": "Relatively complex to interpret; cloud can lag in fast markets; less effective in sideways/range markets; may require parameter tuning. :contentReference[oaicite:12]{index=12}",
+   "source": "https://www.investopedia.com/terms/i/ichimoku-cloud.asp :contentReference[oaicite:13]{index=13}",
+  "tags": ["Ichimoku", "trend", "momentum", "support/resistance", "cloud"]
+}
+,
+{
+  "id": "indicator_21",
+  "short_name": "Supertrend",
+  "name": "Supertrend Indicator",
+  "category": "Trend-Following / Volatility",
+  "description": "A trend-following overlay developed by Olivier Seban in 2009 that uses the Average True Range (ATR) and a multiplier to plot a dynamic line above or below price, signalling bullish or bearish trend biases. :contentReference[oaicite:2]{index=2}",
+  "formula": "hl2 = (High + Low) ÷ 2; \nbasicUpperBand = hl2 + (Multiplier × ATR); \nbasicLowerBand = hl2 − (Multiplier × ATR); \nupperBand = (basicUpperBand < previousUpperBand OR previousClose > previousUpperBand) ? basicUpperBand : previousUpperBand; \nlowerBand = (basicLowerBand > previousLowerBand OR previousClose < previousLowerBand) ? basicLowerBand : previousLowerBand; \nSupertrend = trendDirection == up ? lowerBand : upperBand. :contentReference[oaicite:3]{index=3}",
+  "parameters": "Typical settings: ATR period = 7-14; Multiplier = 2-4. Defaults often ATR = 10, Multiplier = 3. :contentReference[oaicite:4]{index=4}",
+  "signal": {
+    "buy": "Price closes above the Supertrend line (line turns underneath price) → bullish trend signal",
+    "sell": "Price closes below the Supertrend line (line moves above price) → bearish trend signal",
+    "neutral": "Price and Supertrend line are close, frequent flips occur (ranging market) → no clear trend bias"
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) – works best in trending markets rather than sideways. :contentReference[oaicite:5]{index=5}",
+  "strengths": "Simple visual trend indicator; adjusts for volatility via ATR; provides dynamic stop-loss/trail level; works across asset classes. :contentReference[oaicite:6]{index=6}",
+  "weaknesses": "May lag in fast breakouts; prone to whipsaws in range-bound markets; parameter settings sensitive to asset/timeframe. :contentReference[oaicite:7]{index=7}",
+  "source": "https://www.investopedia.com/supertrend-indicator-7976167",
+  "tags": ["trend-following","volatility","ATR","dynamic stop","trend filter"]
+}
+,
+{
+  "id": "indicator_22",
+  "short_name": "GMMA",
+  "name": "Guppy Multiple Moving Average",
+  "category": "Trend-Following / Multi-Moving Average",
+  "description": "Developed by Daryl Guppy, GMMA uses two groups of exponential moving averages (short-term & long-term) to gauge trader vs investor attitude and potential breakout or trend reversals. :contentReference[oaicite:1]{index=1}",
+  "formula": "Short-term group: EMA (3,5,8,10,12,15); Long-term group: EMA (30,35,40,45,50,60). Evaluate divergence/convergence between groups. :contentReference[oaicite:2]{index=2}",
+  "parameters": "Typical short-term EMAs: 3,5,8,10,12,15; long-term EMAs: 30,35,40,45,50,60; timeframe depends on strategy.",
+  "signal": {
+    "buy": "Short-term group diverges and rises above long-term group, indicating trend building.",
+    "sell": "Short-term group converges or falls below long-term group, indicating trend weakening or reversal.",
+    "neutral": "Groups are intertwined or converging, suggesting consolidation/no clear trend."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) but can also be used for longer term trend analysis.",
+  "strengths": "Helps identify when traders (short-term EMAs) and investors (long-term EMAs) align; visual representation of changing market psychology.",
+  "weaknesses": "Complex with many lines; lag inherent in MA; false signals in choppy/sideways markets.",
+  "source": "https://www.investopedia.com/terms/g/guppy-multiple-moving-average.asp",
+  "tags": ["trend-following","moving averages","multi-MA","psychology"]
+}
+,
+{
+  "id": "indicator_23",
+  "short_name": "DeMarker",
+  "name": "DeMarker Indicator (DeM)",
+  "category": "Momentum / Overbought-Oversold Oscillator",
+  "description": "Developed by Tom DeMark, the DeMarker indicator compares current period high/low to previous period high/low to measure demand and potential exhaustion of move. :contentReference[oaicite:4]{index=4}",
+  "formula": "For each period: if High_t > High_{t-1}, Dem_High = High_t − High_{t-1} else Dem_High = 0; similarly for lows. Then DeM = SMA(Dem_High, n) ÷ (SMA(Dem_High, n) + SMA(Dem_Low, n)). Typically n = 14.",
+  "parameters": "Typical period n = 14; overbought ~0.70-0.75; oversold ~0.30-0.25.",
+  "signal": {
+    "buy": "Indicator falls into oversold region (below ~0.25) and then rises above that threshold signalling potential rebound.",
+    "sell": "Indicator rises into overbought region (above ~0.75) and then falls below that threshold signalling potential reversal.",
+    "neutral": "Indicator is between ~0.30-0.70 with no clear extremity or reversal signal."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) particularly useful for detecting exhaustion and reversal points.",
+  "strengths": "Potentially more sensitive to highs/lows than some oscillators; good for reversal timing when used with other tools.",
+  "weaknesses": "Less known so less widely discussed; thresholds subjective; in strong trending markets can give many false signals.",
+  "source": "https://www.forex.com/en-sg/trading-academy/technical-indicators/de­marker-indicator/",
+  "tags": ["oscillator","overbought/oversold","momentum","reversal"]
+}
+,
+{
+  "id": "indicator_24",
+  "short_name": "Fractal",
+  "name": "Fractal Indicator",
+  "category": "Price Pattern / Reversal Indicator",
+  "description": "Developed by Bill Williams, the Fractal indicator identifies recurring price patterns (five-bar patterns) signalling potential reversal or breakout points. :contentReference[oaicite:6]{index=6}",
+  "formula": "Bullish fractal: Low_(t-2) > Low_(t) < Low_(t-1) < Low_(t) < Low_(t+1) < Low_(t+2); Bearish fractal similarly for highs. No numeric smoothing as such—pattern recognition.",
+  "parameters": "Typically uses 5-bar pattern period; apply across multiple timeframes for confirmation.",
+  "signal": {
+    "buy": "Bullish fractal forms (middle bar lowest of five) and is confirmed by price breaking above middle bar high.",
+    "sell": "Bearish fractal forms (middle bar highest of five) and is confirmed by price breaking below middle bar low.",
+    "neutral": "Pattern has not clearly formed or broken out; no valid fractal signal yet."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) especially in conjunction with broader trend filter.",
+  "strengths": "Clear pattern-based signals; often used as triggers with support/resistance; simple rule structure.",
+  "weaknesses": "Many false signals in range/volatile markets; requires waiting for price confirmation; pattern very short term and may be noise.",
+  "source": "https://www.investopedia.com/terms/f/fractal.asp",
+  "tags": ["price pattern","reversal","bar pattern","trigger"]
+}
+,
+{
+  "id": "indicator_25",
+  "short_name": "Keltner Channel",
+  "name": "Keltner Channel",
+  "category": "Volatility / Price Envelope",
+  "description": "A volatility-based channel indicator using an exponential moving average and the Average True Range (ATR) to set bands above and below. Similar to Bollinger Bands but uses ATR for width. :contentReference[oaicite:7]{index=7}",
+  "formula": "Middle line = EMA(n); Upper band = EMA(n) + (Multiplier × ATR(n)); Lower band = EMA(n) − (Multiplier × ATR(n)). Typical n = 20, multiplier = 1.5-2.",
+  "parameters": "Typical EMA period = 20; ATR period = 10 or 14; multiplier = 1.5-2.0.",
+  "signal": {
+    "buy": "Price breaks above upper band with expansion in volatility and upward momentum.",
+    "sell": "Price breaks below lower band with downward momentum and volatility increase.",
+    "neutral": "Price remains between bands with little volatility expansion; no breakout signal."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) for breakout & trend detection.",
+  "strengths": "Volatility-sensitive; channels adjust for range/expansion; good for breakout and trend capture.",
+  "weaknesses": "Still lagging due to EMA; bands may get widened in volatile periods leading to fewer signals; false breakouts possible.",
+  "source": "https://www.newtrading.io/best-technical-indicators/keltner-channel/",
+  "tags": ["volatility","channels","breakout","trend"]
+}
+,
+{
+  "id": "indicator_26",
+  "short_name": "Parabolic SAR",
+  "name": "Parabolic Stop and Reverse (SAR)",
+  "category": "Trend-Following / Trailing Stop Indicator",
+  "description": "Developed by Welles Wilder, the Parabolic SAR plots dots above or below price to represent trend direction and potential reversal points, often used as a trailing stop mechanism. :contentReference[oaicite:9]{index=9}",
+  "formula": "For uptrend: SAR_t = SAR_{t-1} + AF × (EP − SAR_{t-1}); where AF is acceleration factor (starts 0.02, increments by 0.02 up to max 0.20), EP = extreme price (highest high in uptrend). Similar for downtrend. :contentReference[oaicite:10]{index=10}",
+  "parameters": "Typical AF start = 0.02; AF step = 0.02; AF max = 0.20; timeframe adaptable (intraday to daily).",
+  "signal": {
+    "buy": "Dot moves below price after being above → trend reversal to bullish sign.",
+    "sell": "Dot moves above price after being below → trend reversal to bearish sign.",
+    "neutral": "Dots alternate frequently or move closely around price → market is choppy/sideways."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily), especially in trending markets for trailing stop / exit strategy.",
+  "strengths": "Simple visual representation of trend and stop level; good tool for trailing exits and following momentum.",
+  "weaknesses": "Poor performance in sideways/range markets—frequent false signals; less reliable when volatility is low. :contentReference[oaicite:11]{index=11}",
+"source":"https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/parabolic-sar",
+  "tags": ["trend-following","stop-loss","trailing","reversal"]
+}
+,
+{
+  "id": "indicator_27",
+  "short_name": "Donchian Channel",
+  "name": "Donchian Channel",
+  "category": "Trend / Volatility Channel",
+  "description": "An indicator developed by Richard Donchian that plots the highest high and lowest low over a specified period, forming a channel which helps identify breakout or trend-initiation points. :contentReference[oaicite:1]{index=1}",
+  "formula": "UpperBand = HighestHigh_n; LowerBand = LowestLow_n; Middle = (UpperBand + LowerBand) ÷ 2. :contentReference[oaicite:2]{index=2}",
+  "parameters": "Typical look-back period n = 20 (can adjust for timeframe/volatility).",
+  "signal": {
+    "buy": "Price breaks above UpperBand signalling a breakout/strong uptrend.",
+    "sell": "Price breaks below LowerBand signalling a breakout/strong downtrend.",
+    "neutral": "Price remains within the channel (UpperBand and LowerBand) indicating consolidation/no breakout."
+  },
+  "best_timeframe": "Short to medium-term (intraday to daily) especially effective in breakout/trend setups.",
+  "strengths": "Simple and clear breakout zone; suitable for trend initiation and volatility expansion strategies.",
+  "weaknesses": "Many false breakouts especially in choppy markets; gives little information on trend strength or exit timing.",
+  "source": "https://en.wikipedia.org/wiki/Donchian_channel :contentReference[oaicite:3]{index=3}",
+  "tags": ["trend-channel","breakout","volatility","price envelope"]
+}
+,
+{
+  "id": "indicator_28",
+  "short_name": "Coppock Curve",
+  "name": "Coppock Curve",
+  "category": "Long-Term Momentum / Trend Indicator",
+  "description": "An indicator created by E.S.C. Coppock originally for long-term stock market investing, but sometimes adapted for other markets. :contentReference[oaicite:5]{index=5}",
+  "formula": "Coppock = WMA[10] of (ROC[14] + ROC[11]) where ROC = rate of change. :contentReference[oaicite:6]{index=6}",
+  "parameters": "Typical: ROC periods 14 & 11, WMA smoothing 10; mostly used on monthly charts originally.",
+  "signal": {
+    "buy": "Indicator bottoms and crosses above zero signalling early up-trend for long-term horizon.",
+    "sell": "Not primarily built for sell signals (original design), but some adapt by crosses below zero or other criteria.",
+    "neutral": "Indicator near zero and not showing clear upward momentum yet."
+  },
+  "best_timeframe": "Long term (monthly or multi-month) though can be adapted for shorter if parameters are changed.",
+  "strengths": "Designed to capture major market bottoms/turns; less noise compared with short-term oscillators.",
+  "weaknesses": "Very slow/lags substantially; not well-suited for short-term trading; less data support in non-stock-index markets.",
+   "source": "https://en.wikipedia.org/wiki/Coppock_curve :contentReference[oaicite:7]{index=7}",
+  "tags": ["momentum","long-term","trend","macro-indicator"]
+}
+,
+{
+  "id": "indicator_29",
+  "short_name": "Range Expansion Index",
+  "name": "Range Expansion Index (REI)",
+  "category": "Momentum / Reversal Indicator",
+  "description": "An indicator developed by Thomas R. DeMark that measures internal strength/weakness of price-range expansion and contraction to identify potential reversals. :contentReference[oaicite:9]{index=9}",
+  "formula": "REI = (S1 ÷ S2) × 100 where S1 = sum of ‘strong’ price changes; S2 = sum of absolute price changes within look-back period n (commonly n = 8). :contentReference[oaicite:10]{index=10}",
+  "parameters": "Typical look-back n = 8; thresholds around +60/-60 for signals.",
+  "signal": {
+    "buy": "REI falls below -60 and then rises above threshold signalling price strength emerging.",
+    "sell": "REI rises above +60 and then falls indicating weakness or potential reversal.",
+    "neutral": "REI between +60 and -60 without turning indicates no strong expansion or contraction yet."
+  },
+  "best_timeframe": "Short to medium term (intraday to daily) suitable for identifying reversal zones or exhaustion.",
+  "strengths": "Helps detect range contraction/expansion dynamics; early signal of potential reversal of momentum.",
+  "weaknesses": "Less commonly used (less widespread support); can give false signals in very volatile or trending markets without clear contraction phases.",
+  "source": "https://en.wikipedia.org/wiki/Range_expansion_index :contentReference[oaicite:11]{index=11}",
+  "tags": ["reversal","momentum","range-contraction","advanced"]
+}
+,
+{
+  "id": "indicator_30",
+  "short_name": "Absolute Currency Strength",
+  "name": "Absolute Currency Strength (ACS)",
+  "category": "Inter-Market / Currency Strength Indicator",
+  "description": "An indicator that measures the absolute strength or weakness of a currency (or asset) relative to historical performance, often used in forex but illustrative for other assets. :contentReference[oaicite:12]{index=12}",
+  "formula": "ACS = Percentage gain or loss of currency (or asset) over recent period (e.g., N periods) mapped relative to other instruments; formula varies by implementation. :contentReference[oaicite:13]{index=13}",
+  "parameters": "Typical look-back period configurable (e.g., 15 or more); more effective in currency or correlated-asset strategies.",
+  "signal": {
+    "buy": "Asset shows strong ACS reading (relative strength high) while paired asset shows weakness → trade strong asset vs weak asset.",
+    "sell": "Asset shows weak ACS reading (relative strength low) while paired asset shows strength → considered for selling or shorting context.",
+    "neutral": "ACS is moderate / no clear strength vs weakness distinction."
+  },
+  "best_timeframe": "Short to medium term though often used in intraday/FX contexts for strength/weakness strategies rather than pure timing.",
+  "strengths": "Highlights relative strength/weakness across assets or currencies; useful for pairs trading, spread trading or identifying strong vs weak assets.",
+  "weaknesses": "Less conventional in commodity/trend trading compared to mainstream indicators; formula and thresholds more subjective; requires cross-asset data.",
+   "source": "https://en.wikipedia.org/wiki/Absolute_currency_strength :contentReference[oaicite:14]{index=14}",
+  "tags": ["relative‐strength","inter-market","asset-selection","advanced"]
+}
+,
+{
+  "id": "indicator_31",
+  "short_name": "Haurlan Index",
+  "name": "Haurlan Index",
+  "category": "Market Breadth / Composite Indicator",
+  "description": "An indicator developed by P.N. ‘Pete’ Haurlan that uses multiple exponential moving averages of the accumulation/distribution line to gauge short, intermediate, and long-term market breadth and momentum. :contentReference[oaicite:16]{index=16}",
+  "formula": "Three components: EMA_short, EMA_mid, EMA_long applied to A/D line; composite then interpreted relative to previous values. :contentReference[oaicite:17]{index=17}",
+  "parameters": "Typically uses varying lengths for short, intermediate, and long EMAs (e.g., 20, 50, 200).",
+  "signal": {
+    "buy": "Composite component turns upward from trough and breadth confirms shift from accumulation to markup phase.",
+    "sell": "Composite turns downward indicating shift from markup to distribution phase.",
+    "neutral": "Values are flat or divergent without clear change in breadth phases."
+  },
+  "best_timeframe": "Medium to long term (daily to weekly) useful for macro/market-breadth insight rather than granular entry timing.",
+  "strengths": "Provides broader market context; helps detect shift in market phase (accumulation/distribution) rather than individual asset signal.",
+  "weaknesses": "Less useful for precise timing; lag significant; more complex to interpret and less commonly used than standard indicators.",
+  "source": "https://www.investopedia.com/terms/h/haurlanindex.asp :contentReference[oaicite:18]{index=18}",
+  "tags": ["market-breadth","composite","macro","advanced"]
+}
+
+
+]
