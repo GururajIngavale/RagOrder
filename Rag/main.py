@@ -36,7 +36,7 @@ while True:
         # If still missing → NLP fallback using description
         if not entry_rule:
            print("⚠ No machine rule found. Trying NLP…")
-           entry_rule = extract_rule_from_text(metadata.get("description", ""))
+           entry_rule = evaluate_strategy(metadata.get("description", ""))
 
         # If NLP also failed → skip this round
         if not entry_rule:
