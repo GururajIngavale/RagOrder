@@ -1,64 +1,180 @@
-# 📈 SMA Crossover Visualizer & Backtester
+# ⚡ StrategyPulse — RAG-Powered Algo Trading Engine ⚡
 
-An **interactive web-based trading strategy visualizer** and **Python backtesting script** for exploring the **SMA(20/50) crossover strategy** using historical financial data.  
-Upload your OHLC CSV data, run a simple backtest, view metrics, and visualize buy/sell signals — all in your browser!
+Real-Time Market Analysis • AI Strategy Retrieval • Automated Trade Execution
+
+![Status](https://img.shields.io/badge/STATUS-ACTIVE-brightgreen?style=for-the-badge)
+![Tech](https://img.shields.io/badge/TECH-RAG-blue?style=for-the-badge)
+![Automation](https://img.shields.io/badge/TRADING-AUTOMATION-orange?style=for-the-badge)
+![Python](https://img.shields.io/badge/MADE_WITH-PYTHON-yellow?style=for-the-badge)
 
 ---
 
 ## 🚀 Overview
 
-This project helps traders, quants, and learners **understand and test moving average crossovers** using two implementations:
+**StrategyPulse** is a modern algorithmic trading engine designed to leverage:
 
-| Component | Description |
-|------------|--------------|
-| 🧠 **Python Script** | Performs SMA(20/50) crossover backtest with performance metrics, PnL, drawdown, and Sharpe ratio |
-| 💻 **HTML App** | Interactive browser-based visualizer using Chart.js for plotting and analysis |
+* **Retrieval-Augmented Generation (RAG)** for intelligent strategy selection
+* **Real-time market data** for continuous analysis
+* **Technical indicators** using TA-LIB
+* **Natural language → executable rule conversion**
+* **Automated BUY/SELL execution** with P&L tracking
 
----
-
-## 🧩 Features
-
-✅ Load & parse OHLCV CSV data (Datetime, Open, High, Low, Close, Volume)  
-✅ Compute **SMA(20)** and **SMA(50)** indicators  
-✅ Detect **Buy/Sell crossover signals**  
-✅ Simulate long-only trades and track capital  
-✅ Show key metrics:
-- Total Trades
-- Win Rate (%)
-- Total PnL ($)
-- Sharpe Ratio (approx.)
-✅ Display interactive line chart with:
-- SMA(20), SMA(50)
-- Buy (▲) and Sell (▼) markers  
-✅ Download generated trade history as `trades.csv`  
-✅ Download ready-to-run `sma_crossover_backtest.py`  
+StrategyPulse monitors the market in real time, retrieves the most relevant trading strategy from ChromaDB, evaluates rule conditions, and executes trades automatically.
 
 ---
 
-## 🗂️ Project Structure
-📦 sma-crossover-visualizer
+## 🧠 How It Works
+
+1. **Live Market Feed** – `clean_data.py` updates real-time 1-minute OHLCV data.
+2. **Indicator Engine** – `indicators_data.py` computes SMA, EMA, RSI, MACD, ATR, VWAP, OBV, Bollinger Bands, and more.
+3. **RAG Strategy Retrieval** – `verify_db.py` fetches best-matched strategies from the vector DB.
+4. **NL Strategy → Machine Rule** – `evaluate_strategy.py` converts natural-language rules into executable expressions.
+5. **Trading Execution** – `order_engine.py` executes BUY/SELL/HOLD decisions and logs trades.
+6. **Master Loop** – `main.py` orchestrates the entire pipeline.
+
+---
+
+## 🏗️ Architecture Diagram
+
+```
+clean_data.py           →  Fetch live 1m data
+↓
+indicators_data.py      →  Compute technical indicators
+↓
+verify_db.py            →  Retrieve best strategy via RAG
+↓
+evaluate_strategy.py    →  Convert & evaluate rule conditions
+↓
+order_engine.py         →  Execute trades (BUY / SELL / HOLD)
+↓
+main.py                 →  Master loop controller
+```
+
+---
+
+## 📁 Project Structure
+
+```
+Rag/
+├── clean_data.py
+├── indicators_data.py
+├── verify_db.py
+├── evaluate_strategy.py
+├── order_engine.py
+├── create_embeddings.py
+├── strategies.json
+├── indicators.json
+├── main.py
 │
-├── sma_crossover_visualizer.html # Web-based visualizer (Chart.js + JS)
-├── sma_crossover_backtest.py # Python backtesting script
-├── Gold_History.csv # Sample OHLC data (user-provided)
-└── README.md # Documentation (this file)
-
+├── cleaned_AAPL.csv
+├── indicators.csv
+├── pnl_log.csv
+│
+└── db/strategies/     # Vector DB for RAG
+```
 
 ---
 
-## ⚙️ Requirements
+## 🛠️ Tech Stack
 
-### 🐍 For Python Backtesting:
+### Core Components
+
+* 🐍 **Python**
+* 🧠 **ChromaDB** (Vector database)
+* ✨ **HuggingFace MiniLM embeddings**
+* 📉 **TA-LIB** (Indicators)
+* 💹 **YFinance** (Live market data)
+* 📦 **Pandas / NumPy**
+* 📁 **OpenPyXL** (Excel output)
+* 🔍 **Regex + AST** (Rule interpretation)
+
+---
+
+## ⚙️ Installation
+
+### 1) Clone the Repository
+
 ```bash
-pip install pandas numpy mplfinance
-🌐 For Web Visualizer:
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>/Rag
+```
 
-No installation needed — just open sma_crossover_visualizer.html in your browser.
+### 2) Create a Virtual Environment
 
-🧠 Strategy Logic
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux / macOS
+source .venv/bin/activate
+```
 
-Buy Signal: SMA(20) crosses above SMA(50) → Enter long
+### 3) Install Requirements
 
-Sell Signal: SMA(20) crosses below SMA(50) → Exit position
+```bash
+pip install -r requirements.txt
+```
 
-Each trade is executed using a fixed position size (default: $10,000)
+### 📌 Build the Strategy Vector DB
+
+```bash
+python create_embeddings.py
+```
+
+**Expected output:**
+
+```
+Saved to Chroma DB
+```
+
+---
+
+## ▶️ Run the Complete System
+
+```bash
+python main.py
+```
+
+**Sample output:**
+
+```
+📊 Indicators Loaded
+🎯 Strategy Selected: Multi-Timeframe Trend
+📝 Extracted Rule: sma20 > sma50 and rsi > 55
+⚡ Action: BUY
+💼 Trade Executed Successfully
+```
+
+---
+
+## 📊 Generated Files
+
+| File               | Description                      |
+| ------------------ | -------------------------------- |
+| `cleaned_AAPL.csv` | Live market feed data            |
+| `indicators.csv`   | Technical indicator calculations |
+| `pnl_log.csv`      | P&L + trade logs                 |
+| `db/strategies/`   | Chroma vector database           |
+
+---
+
+## 🔮 Future Roadmap
+
+* Multi-symbol support
+* Real brokerage integration (Zerodha / IBKR / Binance)
+* Backtesting engine
+* Live dashboard for P&L and strategy monitoring
+* LLM-powered automated strategy generation
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature requests are welcome.
+Feel free to open an issue or submit a PR.
+
+---
+
+## ⭐ Support
+
+If you find this project useful, please consider leaving a **GitHub Star ⭐**!
