@@ -1,4 +1,4 @@
-# ⚡StrategyPulse — RAG-Powered Algo Trading Engine⚡
+# ⚡Rag Order — RAG-Powered Algo Trading Engine⚡
 
 Real-Time Market Analysis • AI Strategy Retrieval • Automated Trade Execution
 
